@@ -10,14 +10,6 @@ class CryptoPage extends StatefulWidget {
 
 class _CryptoPageState extends State<CryptoPage> {
   var amountUSD = 0.0;
-  var amountCrypto = 0.0;
-  var rate = 0.0;
-
-  calculateRate() {
-    setState(() {
-      amountCrypto = amountUSD / rate;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,12 +22,10 @@ class _CryptoPageState extends State<CryptoPage> {
             if (snapshot.hasError) {
               return const Text("We couldn't load the data");
             } else {
-              setState(() {
-                rate = snapshot.data!;
-              });
               return Column(
                 children: [
                   const SizedBox(height: 40),
+                  Text('Current Rate: ${snapshot.data}'),
                   const Text('Enter your amount in USD'),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -50,10 +40,8 @@ class _CryptoPageState extends State<CryptoPage> {
                     ),
                   ),
                   const SizedBox(height: 40),
-                  ElevatedButton(
-                      onPressed: calculateRate, child: const Text("Get Rate")),
-                  const SizedBox(height: 40),
-                  Text("You can buy ${amountCrypto.toStringAsFixed(4)} of BTC"),
+                  Text(
+                      "You can buy ${(amountUSD / snapshot.data!).toStringAsFixed(4)} BTC"),
                 ],
               );
             }
