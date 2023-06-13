@@ -3,9 +3,9 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class API {
-  Future<double> getBitcoinRate() async {
+  Future<double> getRate(String code) async {
     final response =
-        await http.get(Uri.parse("https://cex.io/api/ticker/BTC/USD"));
+        await http.get(Uri.parse("https://cex.io/api/ticker/$code/USD"));
     if (response.statusCode == 200) {
       final body = response.body;
       final json = jsonDecode(body);

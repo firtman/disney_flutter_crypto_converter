@@ -2,7 +2,8 @@ import 'package:crypto_converter/api.dart';
 import 'package:flutter/material.dart';
 
 class CryptoPage extends StatefulWidget {
-  CryptoPage({super.key});
+  String cryptoCode;
+  CryptoPage(this.cryptoCode, {super.key});
 
   @override
   State<CryptoPage> createState() => _CryptoPageState();
@@ -16,7 +17,7 @@ class _CryptoPageState extends State<CryptoPage> {
     return Scaffold(
       appBar: AppBar(title: const Text("Crypto Converter")),
       body: FutureBuilder(
-        future: API().getBitcoinRate(),
+        future: API().getRate(widget.cryptoCode),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.hasError) {
@@ -41,7 +42,7 @@ class _CryptoPageState extends State<CryptoPage> {
                   ),
                   const SizedBox(height: 40),
                   Text(
-                      "You can buy ${(amountUSD / snapshot.data!).toStringAsFixed(4)} BTC"),
+                      "You can buy ${(amountUSD / snapshot.data!).toStringAsFixed(4)} ${widget.cryptoCode}"),
                 ],
               );
             }
