@@ -15,7 +15,7 @@ class _CryptoPageState extends State<CryptoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Crypto Converter")),
+      appBar: AppBar(title: Text("${widget.cryptoCode} Converter")),
       body: FutureBuilder(
         future: API().getRate(widget.cryptoCode),
         builder: (context, snapshot) {
